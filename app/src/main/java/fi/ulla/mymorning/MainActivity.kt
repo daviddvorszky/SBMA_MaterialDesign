@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -26,7 +27,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MyOwnTheme() {
+            MyOwnTheme(true) {
                 Scaffold(
                     topBar = {
                         TopAppBar (
@@ -50,11 +51,25 @@ class MainActivity : ComponentActivity() {
                 ) {
                     // Screen content
                     // A surface container using the 'background' color from the theme
-                    Surface(
+                    Column(
                         // modifier = Modifier.fillMaxSize(),
-                        color = MaterialTheme.colors.background
+                        //color = MaterialTheme.colors.background
                     ) {
-                        CardDemo()
+                        CardDemo("What a superduper card!")
+                        CardDemo("This one is kinda my card")
+
+                        Row (
+                            horizontalArrangement = Arrangement.End,
+                            verticalAlignment = Alignment.Bottom,
+                            modifier = Modifier.fillMaxSize()
+                        ){
+                            FloatingActionButton(onClick = { /*TODO*/ }, Modifier.padding(5.dp)) {
+                                Text("FAB")
+                            }
+                            FloatingActionButton(onClick = { /*TODO*/ }, Modifier.padding(5.dp)) {
+                                Icon(Icons.Filled.Favorite, "")
+                            }
+                        }
                     }
                 }
             }
@@ -63,20 +78,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    MymorningTheme {
-        Greeting("Android")
-    }
-}
-
-@Composable
-fun CardDemo() {
+fun CardDemo(title: String) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -88,7 +90,7 @@ fun CardDemo() {
             modifier = Modifier.padding(15.dp)
         ) {
             Text (
-                text = "What a superduper card!",
+                text = title,
                 color = MaterialTheme.colors.primaryVariant,
                 style = MaterialTheme.typography.h4
                     )
@@ -139,6 +141,6 @@ fun CardDemo() {
 @Composable
 fun PreviewCardDemo() {
     MymorningTheme {
-        CardDemo()
+        CardDemo("What a superduper card!")
     }
 }
